@@ -1,6 +1,6 @@
 package com.algafood.infrastructure.repository;
 
-import com.algafood.domain.model.Restaurante;
+import com.algafood.api.model.Restaurante;
 import com.algafood.domain.repository.RestauranteRepository;
 import com.algafood.domain.repository.RestauranteRepositoryQueries;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import static com.algafood.infrastructure.repository.spec.RestauranteSpecs.comFreteGratis;

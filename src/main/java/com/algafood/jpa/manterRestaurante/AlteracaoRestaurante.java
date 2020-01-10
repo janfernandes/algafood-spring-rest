@@ -1,7 +1,7 @@
 package com.algafood.jpa.manterRestaurante;
 
 import com.algafood.AlgafoodApplication;
-import com.algafood.domain.model.Restaurante;
+import com.algafood.api.model.Restaurante;
 import com.algafood.domain.repository.RestauranteRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;

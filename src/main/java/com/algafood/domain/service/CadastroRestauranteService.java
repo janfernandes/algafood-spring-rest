@@ -2,8 +2,8 @@ package com.algafood.domain.service;
 
 import com.algafood.domain.exception.EntidadeEmUsoException;
 import com.algafood.domain.exception.RestauranteNaoEncontradoException;
-import com.algafood.domain.model.Cozinha;
-import com.algafood.domain.model.Restaurante;
+import com.algafood.api.model.Cozinha;
+import com.algafood.api.model.Restaurante;
 import com.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

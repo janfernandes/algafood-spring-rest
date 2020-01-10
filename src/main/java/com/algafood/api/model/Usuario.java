@@ -1,4 +1,4 @@
-package com.algafood.domain.model;
+package com.algafood.api.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

@@ -1,36 +1,35 @@
-package com.algafood.domain.model;
+package com.algafood.api.model;
 
 import com.algafood.core.validation.Groups;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.groups.ConvertGroup;
+import javax.validation.groups.Default;
 
-@JsonRootName("cozinha")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "tbl_cozinha")
-public class Cozinha {
+@Table(name = "tbl_cidade")
+public class Cidade {
 
-    @NotNull(groups = Groups.CozinhaId.class)
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @JsonProperty("titulo")
     @NotBlank
     @Column(length = 30, nullable = false)
     private String nome;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "cozinha")
-    private List<Restaurante> restaurantes = new ArrayList<>();
+    @Valid
+    @ConvertGroup(from = Default.class, to = Groups.EstadoId.class)
+    @NotNull
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Estado estado;
 }

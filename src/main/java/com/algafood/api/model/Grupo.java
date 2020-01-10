@@ -1,6 +1,5 @@
-package com.algafood.domain.model;
+package com.algafood.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,7 +21,6 @@ public class Grupo {
     @Column(length = 30, nullable = false)
     private String nome;
 
-    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "tbl_grupo_permissao",
             joinColumns = @JoinColumn(name = "grupo_id"),

@@ -1,7 +1,7 @@
 package com.algafood;
 
-import com.algafood.domain.model.Cozinha;
-import com.algafood.domain.model.Restaurante;
+import com.algafood.api.model.Cozinha;
+import com.algafood.api.model.Restaurante;
 import com.algafood.domain.repository.CozinhaRepository;
 import com.algafood.domain.repository.RestauranteRepository;
 import com.algafood.util.DatabaseCleaner;
