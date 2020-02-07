@@ -15,7 +15,8 @@ public interface RestauranteRepository extends CustomJpaRepository<Restaurante, 
 
     //    join serviu p cozinha por ser manytoone e como formapagamento era many to many precisou do fetch
     //    precisou do left pro caso de nao ter formaspagamento cadastrado e nao retornar null
-    @Query("from Restaurante r join r.cozinha left join fetch r.formasPagamento")
+//    @Query("from Restaurante r join r.cozinha left join fetch r.formasPagamento")
+    @Query("from Restaurante r join fetch r.cozinha")
     List<Restaurante> findAll();
 
     List<Restaurante> findByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal);

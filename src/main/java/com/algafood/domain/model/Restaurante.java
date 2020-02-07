@@ -42,8 +42,8 @@ public class Restaurante {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 30, nullable = false)
     @NotBlank
+    @Column(length = 30, nullable = false)
     private String nome;
 
 //    @DecimalMin("0")
