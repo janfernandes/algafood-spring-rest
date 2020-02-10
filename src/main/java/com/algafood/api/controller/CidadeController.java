@@ -2,7 +2,7 @@ package com.algafood.api.controller;
 
 import com.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algafood.domain.exception.NegocioException;
-import com.algafood.api.model.Cidade;
+import com.algafood.domain.model.Cidade;
 import com.algafood.domain.repository.CidadeRepository;
 import com.algafood.domain.service.CadastroCidadeService;
 import org.springframework.beans.BeanUtils;

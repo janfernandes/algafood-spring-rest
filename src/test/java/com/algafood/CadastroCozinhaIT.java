@@ -2,7 +2,7 @@ package com.algafood;
 
 import static org.hamcrest.Matchers.equalTo;
 
-import com.algafood.api.model.Cozinha;
+import com.algafood.domain.model.Cozinha;
 import com.algafood.domain.repository.CozinhaRepository;
 import com.algafood.util.DatabaseCleaner;
 import com.algafood.util.ResourceUtils;

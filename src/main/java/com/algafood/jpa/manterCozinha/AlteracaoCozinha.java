@@ -1,7 +1,7 @@
 package com.algafood.jpa.manterCozinha;
 
 import com.algafood.AlgafoodApplication;
-import com.algafood.api.model.Cozinha;
+import com.algafood.domain.model.Cozinha;
 import com.algafood.domain.repository.CozinhaRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;

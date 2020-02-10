@@ -1,7 +1,7 @@
 package com.algafood.api.controller;
 
-import com.algafood.api.model.Cozinha;
-import com.algafood.api.model.Restaurante;
+import com.algafood.domain.model.Cozinha;
+import com.algafood.domain.model.Restaurante;
 import com.algafood.domain.repository.CozinhaRepository;
 import com.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.algafood.api.model;
+package com.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 //import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;

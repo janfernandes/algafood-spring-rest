@@ -1,6 +1,6 @@
 package com.algafood.jpa.manterCozinha;
 
-import com.algafood.api.model.Cozinha;
+import com.algafood.domain.model.Cozinha;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;

@@ -1,6 +1,6 @@
 package com.algafood.infrastructure.repository;
 
-import com.algafood.api.model.Restaurante;
+import com.algafood.domain.model.Restaurante;
 import com.algafood.domain.repository.RestauranteRepository;
 import com.algafood.domain.repository.RestauranteRepositoryQueries;
 import org.springframework.beans.factory.annotation.Autowired;

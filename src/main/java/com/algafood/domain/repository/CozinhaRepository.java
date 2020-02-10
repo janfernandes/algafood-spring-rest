@@ -1,6 +1,6 @@
 package com.algafood.domain.repository;
 
-import com.algafood.api.model.Cozinha;
+import com.algafood.domain.model.Cozinha;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

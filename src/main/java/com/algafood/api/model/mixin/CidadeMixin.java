@@ -1,6 +1,6 @@
 package com.algafood.api.model.mixin;
 
-import com.algafood.api.model.Estado;
+import com.algafood.domain.model.Estado;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public class CidadeMixin {

@@ -2,7 +2,7 @@ package com.algafood.domain.service;
 
 import com.algafood.domain.exception.EntidadeEmUsoException;
 import com.algafood.domain.exception.EstadoNaoEncontradoException;
-import com.algafood.api.model.Estado;
+import com.algafood.domain.model.Estado;
 import com.algafood.domain.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

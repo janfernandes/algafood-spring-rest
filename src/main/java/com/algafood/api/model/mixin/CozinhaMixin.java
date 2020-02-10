@@ -1,7 +1,8 @@
 package com.algafood.api.model.mixin;
 
-import com.algafood.api.model.Restaurante;
+import com.algafood.domain.model.Restaurante;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
