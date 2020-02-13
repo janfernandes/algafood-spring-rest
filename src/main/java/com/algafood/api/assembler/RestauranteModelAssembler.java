@@ -17,21 +17,23 @@ public class RestauranteModelAssembler {
     private ModelMapper modelMapper;
 
     public RestauranteModel toModel(Restaurante restaurante) {
-        CozinhaModel cozinhaModel = new CozinhaModel();
-        cozinhaModel.setId(restaurante.getCozinha().getId());
-        cozinhaModel.setNome(restaurante.getCozinha().getNome());
+//        CozinhaModel cozinhaModel = new CozinhaModel();
+//        cozinhaModel.setId(restaurante.getCozinha().getId());
+//        cozinhaModel.setNome(restaurante.getCozinha().getNome());
+//
+//        RestauranteModel restauranteModel = new RestauranteModel();
+//        restauranteModel.setId(restaurante.getId());
+//        restauranteModel.setNome(restaurante.getNome());
+//        restauranteModel.setTaxaFrete(restaurante.getTaxaFrete());
+//        restauranteModel.setCozinha(cozinhaModel);
+//        return restauranteModel;
 
-        RestauranteModel restauranteModel = new RestauranteModel();
-        restauranteModel.setId(restaurante.getId());
-        restauranteModel.setNome(restaurante.getNome());
-        restauranteModel.setTaxaFrete(restaurante.getTaxaFrete());
-        restauranteModel.setCozinha(cozinhaModel);
-        return restauranteModel;
+        return modelMapper.map(restaurante, RestauranteModel.class);
     }
 
     public List<RestauranteModel> toCollectionModel(List<Restaurante> restaurantes){
         return restaurantes.stream()
-                .map(restaurante -> toModel(restaurante))
+                .map(this::toModel)
                 .collect(Collectors.toList());
     }
 }
