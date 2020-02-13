@@ -2,8 +2,6 @@ package com.algafood.api.assembler;
 
 import com.algafood.api.model.CozinhaModel;
 import com.algafood.api.model.RestauranteModel;
-import com.algafood.api.model.input.RestauranteInput;
-import com.algafood.domain.model.Cozinha;
 import com.algafood.domain.model.Restaurante;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

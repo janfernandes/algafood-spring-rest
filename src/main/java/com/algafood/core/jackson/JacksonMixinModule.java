@@ -1,4 +1,4 @@
-package com.algafood.core.validation.jackson;
+package com.algafood.core.jackson;
 
 import com.algafood.api.model.mixin.CidadeMixin;
 import com.algafood.api.model.mixin.CozinhaMixin;

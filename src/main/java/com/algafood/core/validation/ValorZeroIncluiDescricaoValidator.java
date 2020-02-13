@@ -1,11 +1,11 @@
 package com.algafood.core.validation;
 
+import com.algafood.core.validation.ValorZeroIncluiDescricao;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ValidationException;
-import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 
 public class ValorZeroIncluiDescricaoValidator implements ConstraintValidator<ValorZeroIncluiDescricao, Object> {
