@@ -1,5 +1,6 @@
 package com.algafood.api.controller;
 
+import com.algafood.api.model.CidadeModel;
 import com.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algafood.domain.exception.NegocioException;
 import com.algafood.domain.model.Cidade;
@@ -24,7 +25,7 @@ public class CidadeController {
     CadastroCidadeService cadastroCidadeService;
 
     @GetMapping
-    public List<Cidade> listar() {
+    public List<CidadeModel> listar() {
         return cidadeRepository.findAll();
     }
 
