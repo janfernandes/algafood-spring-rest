@@ -1,6 +1,8 @@
 package com.algafood.core.modelmapper;
 
+import com.algafood.api.model.EnderecoModel;
 import com.algafood.api.model.RestauranteModel;
+import com.algafood.domain.model.Endereco;
 import com.algafood.domain.model.Restaurante;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +16,11 @@ public class ModelMapperConfig {
         ModelMapper modelMapper = new ModelMapper();
 //        modelMapper.createTypeMap(Restaurante.class, RestauranteModel.class)
 //        .addMapping(Restaurante::getTaxaFrete, RestauranteModel::setPrecoFrete);
+
+        modelMapper.createTypeMap(Endereco.class, EnderecoModel.class)
+                .<String>addMapping(src -> src.getCidade().getEstado().getNome(),
+                        (dest, value) -> dest.getCidade().setEstado(value));
+
         return modelMapper;
     }
 }

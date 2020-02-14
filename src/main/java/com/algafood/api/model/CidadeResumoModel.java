@@ -9,11 +9,11 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class CidadeModel {
+public class CidadeResumoModel {
 
     private Long id;
 
     private String nome;
 
-    private Estado estado;
+    private String estado;
 }
