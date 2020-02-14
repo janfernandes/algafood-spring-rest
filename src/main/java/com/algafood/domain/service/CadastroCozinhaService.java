@@ -27,6 +27,7 @@ public class CadastroCozinhaService {
     public void excluir(Long id) {
         try {
             cozinhaRepository.deleteById(id);
+            cozinhaRepository.flush();
         } catch (EmptyResultDataAccessException e) {
 //            este jeito a baico eh ruim pois o service q deve conter apenas regras d negocio retorna status http
 //            throw new ResponseStatusException(HttpStatus.NOT_FOUND, String.format("Não existe um cadastro de cozinha com código %d", id));
