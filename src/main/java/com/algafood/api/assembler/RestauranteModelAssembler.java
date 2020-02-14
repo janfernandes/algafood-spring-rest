@@ -1,6 +1,5 @@
 package com.algafood.api.assembler;
 
-import com.algafood.api.model.CozinhaModel;
 import com.algafood.api.model.RestauranteModel;
 import com.algafood.domain.model.Restaurante;
 import org.modelmapper.ModelMapper;
