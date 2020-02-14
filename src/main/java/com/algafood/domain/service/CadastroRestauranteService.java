@@ -22,7 +22,7 @@ public class CadastroRestauranteService {
     private CadastroCozinhaService cadastroCozinha;
 
     @Transactional
-    public Restaurante salvar(Restaurante restaurante){
+    public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
         Cozinha cozinha = cadastroCozinha.buscarOuFalhar(cozinhaId);
         restaurante.setCozinha(cozinha);
@@ -31,18 +31,32 @@ public class CadastroRestauranteService {
     }
 
     @Transactional
-    public void excluir (Long id) {
+    public void excluir(Long id) {
         try {
             restauranteRepository.deleteById(id);
             restauranteRepository.flush();
-        }
-        catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new RestauranteNaoEncontradoException(id);
-        }
-        catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(String.format(MSG_RESTAURANTE_EM_USO, id));
         }
     }
+
+    //nao precisa do .save pq o transactional ja faz isso
+    @Transactional
+    public void ativar(Long id) {
+
+        Restaurante restaurante = buscarOuFalhar(id);
+        restaurante.ativar();
+    }
+
+    @Transactional
+    public void inativar(Long id) {
+
+        Restaurante restaurante = buscarOuFalhar(id);
+        restaurante.inativar();
+    }
+
 
     public Restaurante buscarOuFalhar(Long id) {
         return restauranteRepository.findById(id).orElseThrow(() ->

@@ -89,6 +89,19 @@ public class RestauranteController {
         }
     }
 
+    @PutMapping("/{id}/ativo")
+//    usa o put e nao o post , pois o put eh idenpotente assim como o delete
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ativar(@PathVariable Long id){
+        cadastroRestauranteService.ativar(id);
+    }
+
+    @DeleteMapping("/{id}/ativo")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inativar(@PathVariable Long id){
+        cadastroRestauranteService.inativar(id);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long id) {
