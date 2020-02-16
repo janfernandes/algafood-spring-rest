@@ -70,3 +70,8 @@ insert into tbl_produto (nome, descricao, preco, ativo, restaurante_id) values (
 insert into tbl_produto (nome, descricao, preco, ativo, restaurante_id) values ('Sanduíche X-Tudo', 'Sandubão com muito queijo, hamburger bovino, bacon, ovo, salada e maionese', 19, 1, 5);
 
 insert into tbl_produto (nome, descricao, preco, ativo, restaurante_id) values ('Espetinho de Cupim', 'Acompanha farinha, mandioca e vinagrete', 8, 1, 6);
+
+insert into tbl_grupo (nome) values ('Gerente'), ('Vendedor'), ('Secretária'), ('Cadastrador');
+
+insert into tbl_usuario (nome, email, senha, data_cadastro) values ('Janayna Moura Fernandes', 'jmfernandes@gmail.com', '123jana', utc_timestamp);
+insert into tbl_usuario (nome, email, senha, data_cadastro) values ('Maria Pereira', 'maria@gmail.com', '123maria', utc_timestamp);

@@ -5,6 +5,7 @@ import com.algafood.api.assembler.RestauranteModelAssembler;
 import com.algafood.api.model.RestauranteModel;
 import com.algafood.api.model.input.RestauranteInput;
 import com.algafood.core.validation.ValidacaoException;
+import com.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algafood.domain.exception.NegocioException;
@@ -66,7 +67,7 @@ public class RestauranteController {
             Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
 
             return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restaurante));
-        } catch (EntidadeNaoEncontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }
@@ -84,7 +85,7 @@ public class RestauranteController {
 //                    "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
 
             return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteAtual));
-        } catch (CozinhaNaoEncontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
     }

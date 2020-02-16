@@ -56,6 +56,7 @@ public class FormaPagamentoController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void excluir(@PathVariable Long id){
         cadastroFormaPagamentoService.excluir(id);
     }
