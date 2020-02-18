@@ -4,6 +4,7 @@ import com.algafood.domain.exception.EntidadeEmUsoException;
 import com.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.algafood.domain.model.Cidade;
 import com.algafood.domain.model.Cozinha;
+import com.algafood.domain.model.FormaPagamento;
 import com.algafood.domain.model.Restaurante;
 import com.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class CadastroRestauranteService {
 
     @Autowired
     private CadastroCidadeService cadastroCidadeService;
+
+    @Autowired
+    private CadastroFormaPagamentoService cadastroFormaPagamentoService;
 
     @Transactional
     public Restaurante salvar(Restaurante restaurante) {
@@ -64,6 +68,23 @@ public class CadastroRestauranteService {
         Restaurante restaurante = buscarOuFalhar(id);
         restaurante.inativar();
     }
+
+    @Transactional
+    public void desassociarFormaPagamento(Long id, Long formaPagamentoId){
+        Restaurante restaurante = this.buscarOuFalhar(id);
+        FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscarOuFalhar(formaPagamentoId);
+
+        restaurante.removerFormaPagamento(formaPagamento);
+    }
+
+    @Transactional
+    public void associarFormaPagamento(Long id, Long formaPagamentoId){
+        Restaurante restaurante = this.buscarOuFalhar(id);
+        FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscarOuFalhar(formaPagamentoId);
+
+        restaurante.adicionarFormaPagamento(formaPagamento);
+    }
+
 
     public Restaurante buscarOuFalhar(Long id) {
         return restauranteRepository.findById(id).orElseThrow(() ->
