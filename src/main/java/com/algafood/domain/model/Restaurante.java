@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @ValorZeroIncluiDescricao(valorField = "taxaFrete", descricaoField = "nome", descricaoObrigatoria = "Frete Grátis")
 @Data
@@ -87,5 +88,9 @@ public class Restaurante {
 
     public boolean adicionarFormaPagamento(FormaPagamento formaPagamento) {
         return getFormasPagamento().add(formaPagamento);
+    }
+
+    public boolean adicionarProduto(Produto produto) {
+        return getProdutos().add(produto);
     }
 }

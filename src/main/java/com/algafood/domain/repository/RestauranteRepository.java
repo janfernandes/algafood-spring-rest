@@ -1,5 +1,6 @@
 package com.algafood.domain.repository;
 
+import com.algafood.domain.model.Produto;
 import com.algafood.domain.model.Restaurante;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -27,4 +28,6 @@ public interface RestauranteRepository extends CustomJpaRepository<Restaurante, 
     List<Restaurante> consultarPorNome(String nome, @Param("id") Long id);
 
     int countByCozinhaId(Long cozinha);
+
+    Produto findByProdutos(Produto produto);
 }
