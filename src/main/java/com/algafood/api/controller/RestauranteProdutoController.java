@@ -47,8 +47,27 @@ public class RestauranteProdutoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProdutoModel adicionar(@PathVariable Long id, @RequestBody @Valid ProdutoInput produtoInput){
+    public ProdutoModel adicionar(@PathVariable Long id,
+                                  @RequestBody @Valid ProdutoInput produtoInput) {
+        Restaurante restaurante = cadastroRestauranteService.buscarOuFalhar(id);
+
         Produto produto = produtoInputDisassembler.toDomainObject(produtoInput);
-        return produtoModelAssembler.toModel(cadastroProdutoService.salvar(id, produto));
+        produto.setRestaurante(restaurante);
+
+        produto = cadastroProdutoService.salvar(produto);
+
+        return produtoModelAssembler.toModel(produto);
+    }
+
+    @PutMapping("/{produtoId}")
+    public ProdutoModel atualizar(@PathVariable Long id, @PathVariable Long produtoId,
+                                  @RequestBody @Valid ProdutoInput produtoInput) {
+        Produto produtoAtual = cadastroProdutoService.buscarOuFalhar(id, produtoId);
+
+        produtoInputDisassembler.copyToDomainObject(produtoInput, produtoAtual);
+
+        produtoAtual = cadastroProdutoService.salvar(produtoAtual);
+
+        return produtoModelAssembler.toModel(produtoAtual);
     }
 }
