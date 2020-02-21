@@ -1,11 +1,11 @@
 package com.algafood.domain.service;
 
 import com.algafood.domain.exception.EntidadeEmUsoException;
-import com.algafood.domain.exception.NegocioException;
-import com.algafood.domain.exception.ProdutoNaoEncontradoException;
 import com.algafood.domain.exception.RestauranteNaoEncontradoException;
-import com.algafood.domain.model.*;
-import com.algafood.domain.repository.ProdutoRepository;
+import com.algafood.domain.model.Cidade;
+import com.algafood.domain.model.Cozinha;
+import com.algafood.domain.model.FormaPagamento;
+import com.algafood.domain.model.Restaurante;
 import com.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CadastroRestauranteService {
@@ -31,12 +30,6 @@ public class CadastroRestauranteService {
 
     @Autowired
     private CadastroFormaPagamentoService cadastroFormaPagamentoService;
-
-    @Autowired
-    private ProdutoRepository produtoRepository;
-
-    @Autowired
-    private CadastroProdutoService cadastroProdutoService;
 
     @Autowired
     private CadastroUsuarioService cadastroUsuarioService;
