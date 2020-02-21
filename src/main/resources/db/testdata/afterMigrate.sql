@@ -12,6 +12,7 @@ delete from tbl_restaurante;
 delete from tbl_restaurante_forma_pagamento;
 delete from tbl_usuario;
 delete from tbl_usuario_grupo;
+delete from tbl_restaurante_usuario_responsavel;
 
 set foreign_key_checks = 1;
 
@@ -75,3 +76,8 @@ insert into tbl_grupo (nome) values ('Gerente'), ('Vendedor'), ('Secretária'), 
 
 insert into tbl_usuario (nome, email, senha, data_cadastro) values ('Janayna Moura Fernandes', 'jmfernandes@gmail.com', '123jana', utc_timestamp);
 insert into tbl_usuario (nome, email, senha, data_cadastro) values ('Maria Pereira', 'maria@gmail.com', '123maria', utc_timestamp);
+
+insert into tbl_grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), (2, 1), (2, 2), (3, 1);
+
+insert into tbl_restaurante_usuario_responsavel (restaurante_id, usuario_id) values (1, 2), (3, 1);
+

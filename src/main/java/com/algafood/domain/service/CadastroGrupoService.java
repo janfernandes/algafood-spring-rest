@@ -13,17 +13,31 @@ public class CadastroGrupoService {
     @Autowired
     private GrupoReposiory grupoReposiory;
 
+    @Autowired
+    private CadastroPermissaoService cadastroPermissaoService;
+
     @Transactional
-    public Grupo salvar(Grupo grupo){
+    public Grupo salvar(Grupo grupo) {
         return grupoReposiory.save(grupo);
     }
 
     @Transactional
-    public void excluir(Long id){
+    public void excluir(Long id) {
         grupoReposiory.delete(buscarOuFalhar(id));
     }
 
-    public Grupo buscarOuFalhar(Long id){
+    public Grupo buscarOuFalhar(Long id) {
         return grupoReposiory.findById(id).orElseThrow(() -> new GrupoNaoEncontradoException(id));
+    }
+
+    @Transactional
+    public void desassociarPermissao(Long id, Long permissaoId) {
+        this.buscarOuFalhar(id).desassociarPermissao(cadastroPermissaoService.buscarOuFalhar(permissaoId));
+    }
+
+    @Transactional
+    public void associarPermissao(Long id, Long permissaoId) {
+        Grupo grupo = this.buscarOuFalhar(id);
+        grupo.associarPermissao(cadastroPermissaoService.buscarOuFalhar(permissaoId));
     }
 }

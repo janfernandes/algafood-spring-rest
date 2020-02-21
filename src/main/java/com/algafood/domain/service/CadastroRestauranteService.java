@@ -13,6 +13,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,6 +37,9 @@ public class CadastroRestauranteService {
 
     @Autowired
     private CadastroProdutoService cadastroProdutoService;
+
+    @Autowired
+    private CadastroUsuarioService cadastroUsuarioService;
 
     @Transactional
     public Restaurante salvar(Restaurante restaurante) {
@@ -78,6 +82,16 @@ public class CadastroRestauranteService {
     }
 
     @Transactional
+    public void ativar(List<Long> ids){
+        ids.forEach(this::ativar);
+    }
+
+    @Transactional
+    public void inativar(List<Long> ids){
+        ids.forEach(this::inativar);
+    }
+
+    @Transactional
     public void desassociarFormaPagamento(Long id, Long formaPagamentoId){
         Restaurante restaurante = this.buscarOuFalhar(id);
         FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscarOuFalhar(formaPagamentoId);
@@ -98,4 +112,16 @@ public class CadastroRestauranteService {
         return restauranteRepository.findById(id).orElseThrow(() ->
                 new RestauranteNaoEncontradoException(id));
     }
+
+    @Transactional
+    public void desassociarResponsavel(Long id, Long usuarioId) {
+        this.buscarOuFalhar(id).desassociarResponsavel(cadastroUsuarioService.buscarOuFalhar(usuarioId));
+    }
+
+    @Transactional
+    public void associarResponsavel(Long id, Long usuarioId) {
+        this.buscarOuFalhar(id).associarResponsavel(cadastroUsuarioService.buscarOuFalhar(usuarioId));
+    }
+
+
 }

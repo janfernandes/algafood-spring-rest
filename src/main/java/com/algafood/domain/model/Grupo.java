@@ -26,4 +26,12 @@ public class Grupo {
             joinColumns = @JoinColumn(name = "grupo_id"),
             inverseJoinColumns = @JoinColumn(name = "permissao_id"))
     private List<Permissao> permissoes = new ArrayList<>();
+
+    public boolean desassociarPermissao(Permissao permissao) {
+        return this.getPermissoes().remove(permissao);
+    }
+
+    public boolean associarPermissao(Permissao permissao) {
+        return this.getPermissoes().add(permissao);
+    }
 }

@@ -5,9 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UsuarioModel {
+public class PermissaoModel {
 
-    private String id;
     private String nome;
-    private String email;
+    private String descricao;
 }
