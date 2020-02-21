@@ -13,6 +13,8 @@ delete from tbl_restaurante_forma_pagamento;
 delete from tbl_usuario;
 delete from tbl_usuario_grupo;
 delete from tbl_restaurante_usuario_responsavel;
+delete from tbl_pedido;
+delete from tbl_item_pedido;
 
 set foreign_key_checks = 1;
 
@@ -81,3 +83,23 @@ insert into tbl_grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), 
 
 insert into tbl_restaurante_usuario_responsavel (restaurante_id, usuario_id) values (1, 2), (3, 1);
 
+insert into tbl_pedido (id, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep,
+                    endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
+	                status, data_criacao, subtotal, taxa_frete, valor_total)
+values (1, 1, 1, 1, 1, '38400-000', 'Rua Floriano Peixoto', '500', 'Apto 801', 'Brasil',
+        'CRIADO', utc_timestamp, 298.90, 10, 308.90);
+
+insert into tbl_item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
+values (1, 1, 1, 1, 78.9, 78.9, null);
+
+insert into tbl_item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
+values (2, 1, 2, 2, 110, 220, 'Menos picante, por favor');
+
+insert into tbl_pedido (id, restaurante_id, usuario_cliente_id, forma_pagamento_id, endereco_cidade_id, endereco_cep,
+                    endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro,
+	                status, data_criacao, subtotal, taxa_frete, valor_total)
+values (2, 4, 1, 2, 1, '38400-111', 'Rua Acre', '300', 'Casa 2', 'Centro',
+        'CRIADO', utc_timestamp, 79, 0, 79);
+
+insert into tbl_item_pedido (id, pedido_id, produto_id, quantidade, preco_unitario, preco_total, observacao)
+values (3, 2, 6, 1, 79, 79, 'Ao ponto');

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
+@Entity(name = "tbl_item_pedido")
 public class ItemPedido {
 
     @EqualsAndHashCode.Include
