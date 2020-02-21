@@ -49,6 +49,8 @@ public class Restaurante {
 
     private Boolean ativo = Boolean.TRUE;
 
+    private Boolean aberto = Boolean.TRUE;
+
     //	@JsonIgnore
     @Valid
     @ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
@@ -98,6 +100,14 @@ public class Restaurante {
 
     public boolean adicionarProduto(Produto produto) {
         return getProdutos().add(produto);
+    }
+
+    public void abrir() {
+        this.setAberto(true);
+    }
+
+    public void fechar() {
+        this.setAberto(false);
     }
 
 
