@@ -12,7 +12,7 @@ public class CadastroPedidoService {
     @Autowired
     PedidoRepository pedidoRepository;
 
-    public Pedido buscarOuFalhar(Long id){
-        return pedidoRepository.findById(id).orElseThrow(() -> new PedidoNaoEncontradoException(id));
+    public Pedido buscarOuFalhar(String codigo){
+        return pedidoRepository.findByCodigo(codigo).orElseThrow(() -> new PedidoNaoEncontradoException(codigo));
     }
 }

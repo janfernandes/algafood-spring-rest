@@ -12,6 +12,7 @@ import com.algafood.domain.repository.PedidoRepository;
 import com.algafood.domain.service.CadastroPedidoService;
 import com.algafood.domain.service.EmissaoPedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
@@ -41,12 +42,13 @@ public class PedidoController {
         return pedidoResumoModelAssembler.toCollectionModel(pedidoRepository.findAll());
     }
 
-    @GetMapping("/{id}")
-    public PedidoResumoModel buscar(@PathVariable Long id) {
-        return pedidoResumoModelAssembler.toModel(cadastroPedidoService.buscarOuFalhar(id));
+    @GetMapping("/{codigo}")
+    public PedidoResumoModel buscar(@PathVariable String codigo) {
+        return pedidoResumoModelAssembler.toModel(cadastroPedidoService.buscarOuFalhar(codigo));
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public PedidoResumoModel adicionar(@RequestBody PedidoInput pedidoInput) {
         try {
 
