@@ -4,6 +4,7 @@ import com.algafood.api.assembler.RestauranteInputDisassembler;
 import com.algafood.api.assembler.RestauranteModelAssembler;
 import com.algafood.api.model.RestauranteModel;
 import com.algafood.api.model.input.RestauranteInput;
+import com.algafood.api.model.view.RestauranteView;
 import com.algafood.core.validation.ValidacaoException;
 import com.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.algafood.domain.exception.CozinhaNaoEncontradaException;
@@ -12,12 +13,14 @@ import com.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.algafood.domain.model.Restaurante;
 import com.algafood.domain.repository.RestauranteRepository;
 import com.algafood.domain.service.CadastroRestauranteService;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -49,9 +52,22 @@ public class RestauranteController {
     @Autowired
     private RestauranteInputDisassembler restauranteInputDisassembler;
 
+
     @GetMapping
     public List<RestauranteModel> listar() {
         return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
+    }
+
+    @JsonView(RestauranteView.Resumo.class)
+    @GetMapping(params = "projecao=resumo")
+    public List<RestauranteModel> listarResumido() {
+        return listar();
+    }
+
+    @JsonView(RestauranteView.ApenasNome.class)
+    @GetMapping(params = "projecao=apenas-nome")
+    public List<RestauranteModel> listarApenasNomes() {
+        return listar();
     }
 
     @GetMapping("/{id}")
@@ -71,6 +87,23 @@ public class RestauranteController {
             throw new NegocioException(e.getMessage());
         }
     }
+
+//    @GetMapping
+//    public MappingJacksonValue listar(@RequestParam(required = false) String projecao) {
+//        List<Restaurante> restaurantes = restauranteRepository.findAll();
+//        List<RestauranteModel> restaurantesModel = restauranteModelAssembler.toCollectionModel(restaurantes);
+//
+//        MappingJacksonValue restaurantesWrapper = new MappingJacksonValue(restaurantesModel);
+//
+//        restaurantesWrapper.setSerializationView(RestauranteView.Resumo.class);
+//
+//        if ("apenas-nome".equals(projecao)) {
+//            restaurantesWrapper.setSerializationView(RestauranteView.ApenasNome.class);
+//        } else if ("completo".equals(projecao)) {
+//            restaurantesWrapper.setSerializationView(null);
+//        }
+//        return restaurantesWrapper;
+//    }
 
     @PutMapping("/{id}")
     public RestauranteModel atualizar(@PathVariable Long id, @RequestBody @Valid RestauranteInput restauranteInput) {
@@ -93,44 +126,44 @@ public class RestauranteController {
     @PutMapping("/{id}/ativo")
 //    usa o put e nao o post , pois o put eh idenpotente assim como o delete
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void ativar(@PathVariable Long id){
+    public void ativar(@PathVariable Long id) {
         cadastroRestauranteService.ativar(id);
     }
 
     @DeleteMapping("/{id}/ativo")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void inativar(@PathVariable Long id){
+    public void inativar(@PathVariable Long id) {
         cadastroRestauranteService.inativar(id);
     }
 
     @PutMapping("/{id}/abertura")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void abrir(@PathVariable Long id){
+    public void abrir(@PathVariable Long id) {
         cadastroRestauranteService.abrir(id);
     }
 
     @PutMapping("/{id}/fechamento")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void fechar(@PathVariable Long id){
+    public void fechar(@PathVariable Long id) {
         cadastroRestauranteService.fechar(id);
     }
 
     @PutMapping("/ativacoes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void ativarMultiplos(@RequestBody List<Long> ids){
+    public void ativarMultiplos(@RequestBody List<Long> ids) {
         try {
             cadastroRestauranteService.ativar(ids);
-        } catch (RestauranteNaoEncontradoException e){
+        } catch (RestauranteNaoEncontradoException e) {
             throw new NegocioException(e.getMessage());
         }
     }
 
     @DeleteMapping("/ativacoes")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void inativarMultiplos(@RequestBody List<Long> ids){
+    public void inativarMultiplos(@RequestBody List<Long> ids) {
         try {
             cadastroRestauranteService.inativar(ids);
-        } catch (RestauranteNaoEncontradoException e){
+        } catch (RestauranteNaoEncontradoException e) {
             throw new NegocioException(e.getMessage());
         }
     }
@@ -154,12 +187,13 @@ public class RestauranteController {
     private void validate(Restaurante restaurante, String objName) {
         BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(restaurante, objName);
         validator.validate(restaurante, bindingResult);
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             throw new ValidacaoException(bindingResult);
         }
     }
 
-    private void merge(@RequestBody Map<String, Object> dadosOrigem, Restaurante restauranteDestino, HttpServletRequest request) {
+    private void merge(@RequestBody Map<String, Object> dadosOrigem, Restaurante
+            restauranteDestino, HttpServletRequest request) {
         ServletServerHttpRequest serverHttpRequest = new ServletServerHttpRequest(request);
         try {
 //            Responsavel por converter/serializar objetos java em json e vice versa

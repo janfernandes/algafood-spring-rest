@@ -9,9 +9,15 @@ import com.algafood.domain.exception.PedidoNaoEncontradoException;
 import com.algafood.domain.model.Pedido;
 import com.algafood.domain.model.Usuario;
 import com.algafood.domain.repository.PedidoRepository;
+import com.algafood.domain.repository.filter.PedidoFilter;
 import com.algafood.domain.service.CadastroPedidoService;
 import com.algafood.domain.service.EmissaoPedidoService;
+import com.algafood.infrastructure.repository.spec.PedidoSpecs;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +43,36 @@ public class PedidoController {
     @Autowired
     private EmissaoPedidoService emissaoPedidoService;
 
+//    @GetMapping
+//    public MappingJacksonValue listar(@RequestParam(required = false) String campos) {
+//        List<Pedido> pedidos = pedidoRepository.findAll();
+//        List<PedidoResumoModel> pedidosModel = pedidoResumoModelAssembler.toCollectionModel(pedidos);
+//
+//        MappingJacksonValue pedidosWrapper = new MappingJacksonValue(pedidosModel);
+//
+//        SimpleFilterProvider filterProvider = new SimpleFilterProvider();
+//        filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.serializeAll());
+//
+//        if (StringUtils.isNotBlank(campos)) {
+//            filterProvider.addFilter("pedidoFilter", SimpleBeanPropertyFilter.filterOutAllExcept(campos.split(",")));
+//        }
+//
+//        pedidosWrapper.setFilters(filterProvider);
+//
+//        return pedidosWrapper;
+//    }
+
     @GetMapping
-    public List<PedidoResumoModel> listar() {
-        return pedidoResumoModelAssembler.toCollectionModel(pedidoRepository.findAll());
+    public Page<PedidoResumoModel> listar(PedidoFilter pedidoFilter, @PageableDefault(size = 10) Pageable pageable) {
+        Page<Pedido> pedidoPage = pedidoRepository
+                .findAll(PedidoSpecs.usandoFiltro(pedidoFilter), pageable);
+
+        List<PedidoResumoModel> pedidosResumoModel =
+                pedidoResumoModelAssembler.toCollectionModel(pedidoPage.getContent());
+
+        Page<PedidoResumoModel> pedidoResumoModelPage =
+                new PageImpl<>(pedidosResumoModel, pageable, pedidoPage.getTotalElements());
+        return pedidoResumoModelPage;
     }
 
     @GetMapping("/{codigo}")
