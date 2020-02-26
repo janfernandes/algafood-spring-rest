@@ -1,6 +1,8 @@
 package com.algafood.domain.repository;
 
+import com.algafood.domain.filter.VendaDiariaFilter;
 import com.algafood.domain.model.Pedido;
+import com.algafood.domain.model.dto.VendaDiaria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -16,4 +18,5 @@ public interface PedidoRepository extends JpaRepository<Pedido, Long>,
 
     @Query("from Pedido p join fetch p.cliente join fetch p.restaurante r join fetch r.cozinha")
     List<Pedido> findAll();
+
 }
