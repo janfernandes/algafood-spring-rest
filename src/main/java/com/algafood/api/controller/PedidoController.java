@@ -1,5 +1,6 @@
 package com.algafood.api.controller;
 
+
 import com.algafood.api.assembler.PedidoInputDisassembler;
 import com.algafood.api.assembler.PedidoResumoModelAssembler;
 import com.algafood.api.model.PedidoResumoModel;
@@ -7,10 +8,10 @@ import com.algafood.api.model.input.PedidoInput;
 import com.algafood.core.data.PageableTranslator;
 import com.algafood.domain.exception.NegocioException;
 import com.algafood.domain.exception.PedidoNaoEncontradoException;
+import com.algafood.domain.filter.PedidoFilter;
 import com.algafood.domain.model.Pedido;
 import com.algafood.domain.model.Usuario;
 import com.algafood.domain.repository.PedidoRepository;
-import com.algafood.domain.repository.filter.PedidoFilter;
 import com.algafood.domain.service.CadastroPedidoService;
 import com.algafood.domain.service.EmissaoPedidoService;
 import com.algafood.infrastructure.repository.spec.PedidoSpecs;
@@ -106,17 +107,25 @@ public class PedidoController {
     }
 
     private Pageable traduzirPageable(Pageable apiPageable) {
-        Map<String, String> mapeamento = Map.of(
+
+        ImmutableMap<String, String> mapeamento = ImmutableMap.of(
                 "codigo", "codigo",
                 "subtotal", "subtotal",
                 "taxaFrete", "taxaFrete",
                 "valorTotal", "valorTotal",
-                "dataCriacao", "dataCriacao",
-                "restaurante.nome", "restaurante.nome",
-                "restaurante.id", "restaurante.id",
-                "cliente.id", "cliente.id",
-                "cliente.nome", "cliente.nome"
+                "dataCriacao", "dataCriacao"
         );
+//        Map<String, String> mapeamento = Map.Entry(
+//                "codigo", "codigo",
+//                "subtotal", "subtotal",
+//                "taxaFrete", "taxaFrete",
+//                "valorTotal", "valorTotal",
+//                "dataCriacao", "dataCriacao",
+//                "restaurante.nome", "restaurante.nome",
+//                "restaurante.id", "restaurante.id",
+//                "cliente.id", "cliente.id",
+//                "cliente.nome", "cliente.nome"
+//        );
 
         return PageableTranslator.translate(apiPageable, mapeamento);
     }
