@@ -1,10 +1,21 @@
 package com.algafood.api.controller;
 
+import com.algafood.api.assembler.FotoProdutoModelAssembler;
+import com.algafood.api.model.FotoProdutoModel;
 import com.algafood.api.model.input.FotoProdutoInput;
+import com.algafood.core.validation.FileContentType;
+import com.algafood.core.validation.FileSize;
+import com.algafood.domain.model.FotoProduto;
+import com.algafood.domain.model.Produto;
+import com.algafood.domain.service.CadastroProdutoService;
+import com.algafood.domain.service.CatalogoFotoProdutoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.nio.file.Paths;
 import java.util.UUID;
 
@@ -12,22 +23,29 @@ import java.util.UUID;
 @RequestMapping("/restaurantes/{id}/produtos/{produtoId}/foto")
 public class RestauranteProdutoFotoController {
 
+    @Autowired
+    private CatalogoFotoProdutoService catalogoFotoProdutoService;
+
+    @Autowired
+    private CadastroProdutoService cadastroProdutoService;
+
+    @Autowired
+    private FotoProdutoModelAssembler fotoProdutoModelAssembler;
+
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public void atualizarFoto(@PathVariable Long id, @PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput) {
+    public FotoProdutoModel atualizarFoto(@PathVariable Long id, @PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput) {
 
-        String filename = UUID.randomUUID().toString() + "_" + fotoProdutoInput.getArquivo().getOriginalFilename();
+        Produto produto = cadastroProdutoService.buscarOuFalhar(id, produtoId);
+        MultipartFile arquivo = fotoProdutoInput.getArquivo();
+        FotoProduto foto = new FotoProduto();
+        foto.setProduto(produto);
+        foto.setDescricao(fotoProdutoInput.getDescricao());
+        foto.setContentType(arquivo.getContentType());
+        foto.setTamanho(arquivo.getSize());
+        foto.setNomeArquivo(arquivo.getOriginalFilename());
 
-        String arquivoFoto = "/Users/ferna/" + filename;
+        FotoProduto fotoSalva = catalogoFotoProdutoService.salvar(foto);
 
-        System.out.println(fotoProdutoInput.getDescricao());
-        System.out.println(arquivoFoto);
-        System.out.println(fotoProdutoInput.getArquivo().getContentType());
-
-        try {
-            fotoProdutoInput.getArquivo().transferTo(Paths.get(arquivoFoto));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        return fotoProdutoModelAssembler.toModel(fotoSalva);
     }
 }
