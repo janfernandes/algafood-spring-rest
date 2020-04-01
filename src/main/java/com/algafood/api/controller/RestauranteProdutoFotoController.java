@@ -3,22 +3,21 @@ package com.algafood.api.controller;
 import com.algafood.api.assembler.FotoProdutoModelAssembler;
 import com.algafood.api.model.FotoProdutoModel;
 import com.algafood.api.model.input.FotoProdutoInput;
-import com.algafood.core.validation.FileContentType;
-import com.algafood.core.validation.FileSize;
 import com.algafood.domain.model.FotoProduto;
 import com.algafood.domain.model.Produto;
 import com.algafood.domain.service.CadastroProdutoService;
 import com.algafood.domain.service.CatalogoFotoProdutoService;
+import com.algafood.domain.service.FotoStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.UUID;
+import java.io.InputStream;
 
 @RestController
 @RequestMapping("/restaurantes/{id}/produtos/{produtoId}/foto")
@@ -32,6 +31,9 @@ public class RestauranteProdutoFotoController {
 
     @Autowired
     private FotoProdutoModelAssembler fotoProdutoModelAssembler;
+
+    @Autowired
+    private FotoStorageService fotoStorageService;
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public FotoProdutoModel atualizarFoto(@PathVariable Long id, @PathVariable Long produtoId, @Valid FotoProdutoInput fotoProdutoInput) throws IOException {
@@ -50,10 +52,21 @@ public class RestauranteProdutoFotoController {
         return fotoProdutoModelAssembler.toModel(fotoSalva);
     }
 
-    @GetMapping
-    public FotoProdutoModel buscarFoto(@PathVariable Long id, @PathVariable Long produtoId){
+//    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//    public FotoProdutoModel buscarFoto(@PathVariable Long id, @PathVariable Long produtoId){
+//        FotoProduto fotoProduto = catalogoFotoProdutoService.buscarOuFalhar(id, produtoId);
+//        return fotoProdutoModelAssembler.toModel(fotoProduto);
+//    }
+
+    @GetMapping(produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<InputStreamResource> servirFoto(@PathVariable Long id, @PathVariable Long produtoId){
         FotoProduto fotoProduto = catalogoFotoProdutoService.buscarOuFalhar(id, produtoId);
-        return fotoProdutoModelAssembler.toModel(fotoProduto);
+
+        InputStream inputStream = fotoStorageService.recuperar(fotoProduto.getNomeArquivo());
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(new InputStreamResource(inputStream));
     }
 
 }
