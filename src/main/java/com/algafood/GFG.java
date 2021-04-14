@@ -3,11 +3,10 @@ package com.algafood;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 
 public class GFG {
     static int countPiles(int n, int[] a) {
-        LinkedHashMap<Integer, Integer> occ = new LinkedHashMap<>();
+        HashMap<Integer, Integer> occ = new HashMap<>();
         for (int i = 0; i < n; i++)
             occ.put(a[i], occ.get(a[i]) == null ? 1 : occ.get(a[i]) + 1);
         int pile = 0;
