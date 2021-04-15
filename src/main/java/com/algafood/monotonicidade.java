@@ -1,4 +1,4 @@
-//package com.algafood;
+////package com.algafood;
 //
 //import java.io.BufferedReader;
 //import java.io.FileReader;
@@ -11,18 +11,23 @@
 //class Main {
 //
 //    public static void main(String args[]) throws Exception {
-//                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-////        BufferedReader br = new BufferedReader(new FileReader("C:/mono.txt"));
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+////                        BufferedReader br = new BufferedReader(new FileReader("C:/mono.txt"));
 //        int n = Integer.parseInt(br.readLine());
 //        for (int i = 0; i < n; i++) {
-//            br.readLine();
-//            isMono(Arrays.stream(br.readLine().split(" ")).map(String::trim).mapToInt(Integer::parseInt).toArray());
+//            int caseActual = Integer.parseInt(br.readLine());
+//            long[] a = new long[caseActual];
+//            String line = br.readLine(); // to read multiple integers line
+//            String[] strs = line.trim().split("\\s+");
+//            for (int j = 0; j < caseActual; j++) {
+//                a[j] = Long.parseLong(strs[j]);
+//            }
+//            isMono(Arrays.stream(a).toArray());
 //        }
-//
 //    }
 //
-//    private static void isMono(int[] monoArray) {
-//        Set<Integer> aux = Arrays.stream(monoArray).boxed().collect(Collectors.toSet());
+//    private static void isMono(long[] monoArray) {
+//        Set<Long> aux = Arrays.stream(monoArray).boxed().collect(Collectors.toSet());
 //        //se forem todos diferentes ja retorna q nao
 //        if (aux.size() == monoArray.length) {
 //            printNotMono();
@@ -37,12 +42,12 @@
 //        generateSubSequences(monoArray);
 //    }
 //
-//    private static void generateSubSequences(int[] monoArray) {
+//    private static void generateSubSequences(long[] monoArray) {
 //        int inf = 0;
 //        int sup = monoArray.length;
 //        for (int i = inf; i < sup; i++) {
 //            for (int j = i + 1; j < sup; j++) {
-//                List<Integer> collect = IntStream.range(i, j + 1).mapToObj(v -> monoArray[v]).collect(Collectors.toList());
+//                List<Long> collect = IntStream.range(i, j + 1).mapToObj(v -> monoArray[v]).collect(Collectors.toList());
 //                if (collect.stream().distinct().count() <= collect.size() / 2) {
 //                    printMono();
 //                    return;

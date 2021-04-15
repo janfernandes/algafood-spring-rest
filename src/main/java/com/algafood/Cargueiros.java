@@ -9,14 +9,14 @@ import java.util.stream.Collectors;
 class Main {
 
     public static void main(String args[]) throws Exception {
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        String collect = "";
-//        String line = br.readLine();
-//        while ((line != null) && (!line.isEmpty())) {
-//            collect = collect + line + "-";
-//            line = br.readLine();
-//        }
-//        throw new Exception(collect);
+        //        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //        String collect = "";
+        //        String line = br.readLine();
+        //        while ((line != null) && (!line.isEmpty())) {
+        //            collect = collect + line + "-";
+        //            line = br.readLine();
+        //        }
+        //        throw new Exception(collect);
         BufferedReader br = new BufferedReader(new FileReader("C:/Cargueiros.txt"));
         String currentLine;
         int currentCase = 0;
@@ -41,11 +41,16 @@ class Main {
             int fim = containers.length();
             String auxSearch = containers.substring(start, fim);
             for (Character c : possibilitiesToQueue) {
-                auxSearch = auxSearch.substring(0, auxSearch.indexOf(c)) + auxSearch.substring(auxSearch.indexOf(c) + 1);
+                for (int i = start; i < containers.length(); i++) {
+                    if (auxSearch.charAt(i) == c) {
+                        auxSearch = auxSearch.substring(0, i) + auxSearch.substring(i + 1);
+                        start = i;
+                        break;
+                    }
+                }
             }
             containers = auxSearch;
-            if (containers.isEmpty())
-                break;
+            if (containers.isEmpty()) break;
             possibilitiesToQueue = findPossibilitiesToQueue(containers.toCharArray());
         }
         printResult(Math.min(tamQueue, maxQueueSize), currentCase);
@@ -59,19 +64,20 @@ class Main {
         sequence.get(0).add(arr[0]);
         for (int i = 1; i < arr.length; i++) {
             for (int j = 0; j < i; j++) {
+                //esta errado aqui
                 if (arr[j] >= arr[i] && sequence.get(j).size() > sequence.get(i).size()) {
                     sequence.set(i, new ArrayList<>(sequence.get(j)));
                 }
             }
             sequence.get(i).add(arr[i]);
         }
-        int j = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (sequence.get(j).get(0) == arr[0] && sequence.get(j).size() < sequence.get(i).size()) {
-                j = i;
+        int novo = 0;
+        for (int atual = 0; atual < arr.length; atual++) {
+            if (sequence.get(atual).get(0) == arr[0] && sequence.get(novo).size() < sequence.get(atual).size()) {
+                novo = atual;
             }
         }
-        return sequence.get(j);
+        return sequence.get(novo);
     }
 
     static int getUniqueSize(String str) {
