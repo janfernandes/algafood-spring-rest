@@ -17,7 +17,7 @@
 //        for (int i = 0; i < n; i++) {
 //            int caseActual = Integer.parseInt(br.readLine());
 //            long[] a = new long[caseActual];
-//            String line = br.readLine(); // to read multiple integers line
+//            String line = br.readLine();
 //            String[] strs = line.trim().split("\\s+");
 //            for (int j = 0; j < caseActual; j++) {
 //                a[j] = Long.parseLong(strs[j]);

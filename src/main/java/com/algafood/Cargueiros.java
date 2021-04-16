@@ -35,7 +35,10 @@ class Main {
 
         int tamQueue = 0;
         List<Character> possibilitiesToQueue = findPossibilitiesToQueue(containers.toCharArray());
-        while (possibilitiesToQueue.size() > 0) {
+        while (!possibilitiesToQueue.isEmpty()) {
+            if(tamQueue==maxQueueSize){
+                break;
+            }
             tamQueue++;
             int start = containers.indexOf(possibilitiesToQueue.get(0));
             int fim = containers.length();
@@ -61,11 +64,12 @@ class Main {
         for (int i = 0; i < arr.length; i++) {
             sequence.add(new ArrayList<>());
         }
+        //depois q mudar da letra inicial ja pode parar
         sequence.get(0).add(arr[0]);
         for (int i = 1; i < arr.length; i++) {
             for (int j = 0; j < i; j++) {
                 //esta errado aqui
-                if (arr[j] >= arr[i] && sequence.get(j).size() > sequence.get(i).size()) {
+                if (arr[j] >= arr[i]) {
                     sequence.set(i, new ArrayList<>(sequence.get(j)));
                 }
             }
