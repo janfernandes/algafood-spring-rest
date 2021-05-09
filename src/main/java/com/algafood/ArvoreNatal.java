@@ -1,8 +1,10 @@
 //package com.algafood;
 //
+//import java.io.BufferedReader;
+//import java.io.InputStreamReader;
 //import java.util.HashMap;
 //
-//class GFG {
+//class Main {
 //    static int preIndex = 0;
 //
 //    void printPostArvore(char[] emCaminho, char[] preCaminho, int inStrt, int inEnd, HashMap<Character, Integer> hashMapArvore) {
@@ -22,13 +24,20 @@
 //        for (int i = 0; i < n; i++)
 //            hashMapArvore.put(emCaminho[i], i);
 //        printPostArvore(emCaminho, preCaminho, 0, n - 1, hashMapArvore);
+//        System.out.println();
 //    }
 //
-//    // Driver code
-//    public static void main(String ars[]) {
-//        char pre[] = {'S', 'E', 'A', 'H', 'T', 'P'};
-//        char in[] = {'A', 'E', 'H', 'S', 'T', 'P'};
-//        GFG tree = new GFG();
-//        tree.findPostTree(in, pre);
+//    public static void main(String args[]) throws Exception {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//
+//        Main tree = new Main();
+//        String line = br.readLine();
+//        String[] split;
+//        while ((line != null) && (!line.isEmpty())) {
+//            split = line.split("\\s+");
+//            tree.findPostTree(split[1].toCharArray(), split[0].toCharArray());
+//            line = br.readLine();
+//            preIndex = 0;
+//        }
 //    }
 //}
