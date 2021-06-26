@@ -4,6 +4,7 @@
 //import java.io.FileReader;
 //import java.io.InputStreamReader;
 //import java.util.*;
+//import java.util.function.Function;
 //import java.util.stream.Collectors;
 //
 //class Main {
@@ -28,9 +29,13 @@
 //    }
 //
 //    private static void calculateGift(ArrayList<List<Integer>> disciplinasList) {
-//        long count = disciplinasList.stream().filter(i -> Collections.frequency(disciplinasList, i) > 1).count();
-//        if (count == 0)
-//            count = disciplinasList.size();
-//        System.out.println(count);
+//        Map<List<Integer>, Long> collect = disciplinasList.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+//        Long maxValue = collect.entrySet().stream().max(Comparator.comparing(Map.Entry::getValue)).get().getValue();
+//        long count = collect.entrySet()
+//                .stream()
+//                .filter(entry -> Objects.equals(entry.getValue(), maxValue))
+//                .map(Map.Entry::getKey)
+//                .collect(Collectors.toSet()).stream().count();
+//        System.out.println(maxValue*count);
 //    }
 //}

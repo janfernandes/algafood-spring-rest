@@ -1,4 +1,4 @@
-////package com.algafood;
+//package com.algafood;
 //
 //import java.io.BufferedReader;
 //import java.io.FileReader;
@@ -11,8 +11,8 @@
 //class Main {
 //
 //    public static void main(String args[]) throws Exception {
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-////                        BufferedReader br = new BufferedReader(new FileReader("C:/mono.txt"));
+////        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//                        BufferedReader br = new BufferedReader(new FileReader("C:/mono.txt"));
 //        int n = Integer.parseInt(br.readLine());
 //        for (int i = 0; i < n; i++) {
 //            int caseActual = Integer.parseInt(br.readLine());
